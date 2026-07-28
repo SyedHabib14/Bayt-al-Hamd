@@ -47,7 +47,7 @@ function Home() {
           </Link>
         </div>
         <div className="gold-rule-shimmer mt-14 max-w-md" />
-        <p style={{"fontSize" : 50, "textAlign" : "center"}} className="mt-6 graph-text text-ink" dir="rtl">
+        <p style={{ dir: "rtl" }} className="mt-6 graph-text text-ink text-center text-[35px] md:text-[55px]">
         بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
         </p>
       </section>
