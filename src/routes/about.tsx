@@ -28,6 +28,18 @@ function About() {
           add, edit or publish content, and every change is written into a permanent audit log.
         </p>
       </div>
+
+      <div className="mt-4 flex flex-col items-center border-t border-gold/20 text-center sm:mt-16 sm:pt-6">
+        <div className="relative rounded-full p-2 before:absolute before:inset-0 before:rounded-full before:bg-gold/10 before:blur-2xl dark:before:bg-gold/5">
+          <img
+            src="/BaH.png"
+            alt="Bayt al-Ḥamd emblem"
+            className="relative h-auto w-auto drop-shadow-[0_18px_24px_rgba(91,45,20,0.18)] transition-transform duration-500 hover:scale-[1.03] sm:w-64"
+          />
+        </div>
+        {/* <p className="mt-5 font-display text-xl tracking-wide text-gold">Bayt al-Ḥamd</p> */}
+        <p className="text-xs uppercase -mt-16 ml-4 tracking-[0.28em] text-ink-soft">A house of praise and remembrance</p>
+      </div>
     </div>
   );
 }
