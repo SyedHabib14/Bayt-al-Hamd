@@ -97,6 +97,7 @@ const hadithInput = z.object({
   translation_en: z.string().min(3),
   grade: z.string().max(120).optional().nullable(),
   notes: z.string().max(4000).optional().nullable(),
+  reference: z.object({ book_name: z.string().max(200), volume: z.string().max(40), page: z.string().max(40), hadith_number: z.string().max(80), reliability_note: z.string().max(500) }).optional().nullable(),
   is_published: z.boolean().default(false),
   position: z.number().int().default(0),
 });
@@ -125,6 +126,8 @@ export const saveHadith = createServerFn({ method: "POST" })
     if (data.id) {
       const { data: row, error } = await supabase.from("hadiths").update(payload).eq("id", data.id).select().single();
       if (error) throw new Response(error.message, { status: 400 });
+      await supabase.from("hadith_references").delete().eq("hadith_id", data.id);
+      if (data.reference?.book_name) await supabase.from("hadith_references").insert({ hadith_id: data.id, ...data.reference });
       await supabase.from("audit_log").insert({
         user_id: auth.sub, user_cnic: auth.cnic, action: "update", entity_type: "hadith", entity_id: row.id,
       });
@@ -136,6 +139,7 @@ export const saveHadith = createServerFn({ method: "POST" })
       .select()
       .single();
     if (error) throw new Response(error.message, { status: 400 });
+    if (data.reference?.book_name) await supabase.from("hadith_references").insert({ hadith_id: row.id, ...data.reference });
     await supabase.from("audit_log").insert({
       user_id: auth.sub, user_cnic: auth.cnic, action: "create", entity_type: "hadith", entity_id: row.id,
     });
@@ -169,7 +173,9 @@ export const listHadithsByMajlisId = createServerFn({ method: "POST" })
       .order("position")
       .order("created_at");
     if (error) throw new Response(error.message, { status: 500 });
-    return rows ?? [];
+    if (!rows?.length) return [];
+    const { data: refs } = await supabase.from("hadith_references").select("*").in("hadith_id", rows.map((row) => row.id));
+    return rows.map((row) => ({ ...row, reference: refs?.find((ref) => ref.hadith_id === row.id) ?? null }));
   });
 
 export const getMajlisById = createServerFn({ method: "POST" })

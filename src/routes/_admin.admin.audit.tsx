@@ -5,7 +5,7 @@ import { listAudit } from "@/lib/admin.functions";
 import { authHeaders, useAuth } from "@/lib/auth-store";
 
 export const Route = createFileRoute("/_admin/admin/audit")({
-  head: () => ({ meta: [{ title: "Audit · Admin — Dalīl" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Audit · Admin — Bayt al-Ḥamd" }, { name: "robots", content: "noindex" }] }),
   component: AuditPage,
 });
 

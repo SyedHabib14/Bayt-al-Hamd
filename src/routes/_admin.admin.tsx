@@ -1,12 +1,13 @@
 import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { listAllMajalis } from "@/lib/admin.functions";
+import { listAllBooks } from "@/lib/book-admin.functions";
 import { authHeaders, useAuth } from "@/lib/auth-store";
-import { BookOpen, FileText, EyeOff, RefreshCw } from "lucide-react";
+import { BookOpen, FileText, EyeOff, RefreshCw, Library } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 
 export const Route = createFileRoute("/_admin/admin")({
-  head: () => ({ meta: [{ title: "Admin — Dalīl" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Admin — Bayt al-Ḥamd" }, { name: "robots", content: "noindex" }] }),
   component: Dashboard,
 });
 
@@ -39,30 +40,41 @@ function Dashboard() {
   const queryClient = useQueryClient();
 
   // Determine if we're on the exact /admin path vs a child route like /admin/majalis.
-  // When on a child route, we must render <Outlet /> so child route components mount.
+  // When on a child route, we render <Outlet /> instead — but hooks below must still
+  // run unconditionally on every render (Rules of Hooks), so `enabled` gates the
+  // network request rather than skipping the hook call itself.
   const { pathname } = useLocation();
   const isExactDashboard = pathname === "/admin";
+
+  const { data: majalis, isError, isLoading, refetch } = useQuery({
+    queryKey: ["admin", "majalis"],
+    queryFn: () => listAllMajalis({ headers: authHeaders() }),
+    enabled: Boolean(token) && isExactDashboard,
+    retry: false,
+    staleTime: 30_000, // 30s cache — avoids redundant refetches on navigation
+  });
+  const { data: books } = useQuery({
+    queryKey: ["admin", "books"],
+    queryFn: () => listAllBooks({ headers: authHeaders() }),
+    enabled: Boolean(token) && isExactDashboard,
+    retry: false,
+    staleTime: 30_000,
+  });
 
   if (!isExactDashboard) {
     return <Outlet />;
   }
 
-  const { data: majalis, isError, isLoading, refetch } = useQuery({
-    queryKey: ["admin", "majalis"],
-    queryFn: () => listAllMajalis({ headers: authHeaders() }),
-    enabled: Boolean(token),
-    retry: false,
-    staleTime: 30_000, // 30s cache — avoids redundant refetches on navigation
-  });
   const rows = Array.isArray(majalis) ? majalis : [];
   const total = rows.length;
   const published = rows.filter((m) => m.is_published).length;
   const drafts = total - published;
+  const bookRows = Array.isArray(books) ? books : [];
 
   if (isLoading) {
     return (
-      <div className="grid gap-6 sm:grid-cols-3">
-        {[1, 2, 3].map((i) => (
+      <div className="grid gap-4 sm:grid-cols-4">
+        {[1, 2, 3, 4].map((i) => (
           <div key={i} className="manuscript animate-pulse p-5 sm:p-8">
             <div className="h-3 w-24 rounded bg-ink-soft/20" />
             <div className="mt-3 h-8 w-16 rounded bg-ink-soft/20" />
@@ -74,10 +86,11 @@ function Dashboard() {
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-4">
         <StatCard icon={BookOpen} label="Total majalis" value={total} accent="bg-gold/20" />
         <StatCard icon={FileText} label="Published" value={published} accent="bg-emerald-500/20" />
         <StatCard icon={EyeOff} label="Drafts" value={drafts} accent="bg-amber-500/20" />
+        <StatCard icon={Library} label="Books" value={bookRows.length} accent="bg-sky-500/20" />
       </div>
       {isError && (
         <div className="manuscript flex items-center gap-3 border-destructive/30 p-4">
@@ -100,6 +113,13 @@ function Dashboard() {
         >
           <BookOpen size={16} />
           Manage majalis →
+        </Link>
+        <Link
+          to="/admin/books"
+          className="inline-flex items-center gap-2 rounded-md border border-gold/50 px-5 py-2.5 text-sm text-ink hover:border-gold hover:text-gold"
+        >
+          <Library size={16} />
+          Manage books →
         </Link>
         <button
           onClick={() => queryClient.invalidateQueries({ queryKey: ["admin"] })}

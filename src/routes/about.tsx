@@ -1,19 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/about")({
-  head: () => ({ meta: [{ title: "About — Dalīl" }, { name: "description", content: "About the Dalīl archive." }] }),
+  head: () => ({ meta: [{ title: "About — Bayt al-Ḥamd" }, { name: "description", content: "About the Bayt al-Ḥamd archive." }] }),
   component: About,
 });
 
 function About() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-16">
-      <p className="text-xs uppercase tracking-[0.35em] text-gold">About</p>
-      <h1 className="mt-3 font-display text-4xl text-ink">What is Dalīl?</h1>
-      <div className="gold-rule mt-6 w-24" />
+    <div className="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+      <p className="eyebrow text-center">YOU MAY BE CURIOUS THAT</p>
+      <h1 className="mt-3 font-display text-4xl text-center text-ink sm:text-5xl">What is Bayt al-Ḥamd?</h1>
+      <div className="gold-rule mt-8 w-24 mx-auto" />
       <div className="prose mt-8 space-y-5 font-serif text-lg leading-relaxed text-ink">
         <p>
-          <strong>Dalīl</strong> (دَلِيل — <em>the evidence, the guide</em>) is a scholarly archive
+          <strong>Bayt al-Ḥamd</strong> (The House of Praise) is historically revered in Shia tradition as the designated house in Samarrah associated with the upbringing and sanctuary of Imam al-Mahdi [ajtf]. This project is a scholarly archive
           dedicated to a single, careful task: to record and verify every ḥadīth quoted during a
           majlis.
         </p>

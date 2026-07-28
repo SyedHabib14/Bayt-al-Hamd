@@ -14,6 +14,12 @@ export type Database = {
   }
   public: {
     Tables: {
+      reference_books: {
+        Row: { id: string; name: string; volume_count: number; description: string | null; is_active: boolean; position: number; created_at: string }
+        Insert: { id?: string; name: string; volume_count: number; description?: string | null; is_active?: boolean; position?: number; created_at?: string }
+        Update: { id?: string; name?: string; volume_count?: number; description?: string | null; is_active?: boolean; position?: number; created_at?: string }
+        Relationships: []
+      }
       audit_log: {
         Row: {
           action: string
@@ -52,6 +58,75 @@ export type Database = {
           {
             foreignKeyName: "audit_log_user_id_fkey"
             columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      books: {
+        Row: {
+          archive_url: string | null
+          author: string | null
+          cover_url: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          download_url: string
+          id: string
+          is_published: boolean
+          language: string | null
+          pages: number | null
+          position: number
+          title: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          archive_url?: string | null
+          author?: string | null
+          cover_url?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          download_url: string
+          id?: string
+          is_published?: boolean
+          language?: string | null
+          pages?: number | null
+          position?: number
+          title: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          archive_url?: string | null
+          author?: string | null
+          cover_url?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          download_url?: string
+          id?: string
+          is_published?: boolean
+          language?: string | null
+          pages?: number | null
+          position?: number
+          title?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "books_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "books_updated_by_fkey"
+            columns: ["updated_by"]
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]

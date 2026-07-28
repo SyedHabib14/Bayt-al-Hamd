@@ -5,17 +5,18 @@ import {
   deleteHadith, deleteMajlis, getMajlisById, listHadithsByMajlisId, saveHadith, saveMajlis,
 } from "@/lib/admin.functions";
 import { authHeaders } from "@/lib/auth-store";
-import { formatDate } from "@/lib/public-data";
-import { Plus, Trash2, Edit3, ArrowLeft, RefreshCw, BookOpen } from "lucide-react";
+import { formatDate, referenceBooksQuery } from "@/lib/public-data";
+import { Plus, Trash2, Edit3, ArrowLeft, RefreshCw, BookOpen, Library } from "lucide-react";
 
 export const Route = createFileRoute("/_admin/admin/majalis/$id/edit")({
-  head: () => ({ meta: [{ title: "Edit majlis · Admin — Dalīl" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Edit majlis · Admin — Bayt al-Ḥamd" }, { name: "robots", content: "noindex" }] }),
   component: EditMajlis,
 });
 
 interface HadithRow {
   id: string; majlis_id: string; arabic_text: string; translation_en: string;
   grade: string | null; notes: string | null; is_published: boolean; position: number;
+  reference?: { book_name: string; volume: string | null; page: string | null; hadith_number: string | null; reliability_note: string | null } | null;
 }
 
 function useMajlisAndHadiths(id: string) {
@@ -355,6 +356,14 @@ function HadithForm({
   const [grade, setGrade] = useState(hadith?.grade ?? "");
   const [notes, setNotes] = useState(hadith?.notes ?? "");
   const [isPublished, setIsPublished] = useState(hadith?.is_published ?? true);
+  const [book, setBook] = useState(hadith?.reference?.book_name ?? "");
+  const [volume, setVolume] = useState(hadith?.reference?.volume ?? "");
+  const [page, setPage] = useState(hadith?.reference?.page ?? "");
+  const [hadithNumber, setHadithNumber] = useState(hadith?.reference?.hadith_number ?? "");
+  const { data: referenceBooks = [] } = useQuery(referenceBooksQuery);
+  const selectedBook = referenceBooks.find((item) => item.name === book);
+  const volumeOptions = Array.from({ length: selectedBook?.volume_count ?? 0 }, (_, index) => String(index + 1));
+  const pageOptions = Array.from({ length: 999 }, (_, index) => String(index + 1));
   const mut = useMutation({
     mutationFn: () =>
       saveHadith({
@@ -365,6 +374,7 @@ function HadithForm({
           translation_en: translation,
           grade: grade || null,
           notes: notes || null,
+          reference: book ? { book_name: book, volume, page, hadith_number: hadithNumber, reliability_note: "" } : null,
           is_published: isPublished,
           position: hadith?.position ?? position ?? 1,
         },
@@ -380,6 +390,19 @@ function HadithForm({
       }}
       className="manuscript mt-4 space-y-3 p-5 sm:p-6"
     >
+      <div>
+        <div className="mb-1 flex items-center gap-2"><Library size={14} className="text-gold" /><label className="text-[10px] uppercase tracking-[0.2em] text-ink-soft sm:text-xs">Reference</label></div>
+        <p className="mb-2 text-xs text-ink-soft">Add a source only when this hadith has been verified against it.</p>
+        <label htmlFor="reference-book" className="sr-only">Reference book</label><select id="reference-book" value={book} onChange={(e) => { setBook(e.target.value); setVolume(""); }} className="mt-1 w-full rounded-md border border-border bg-card px-3 py-2.5 text-sm text-ink shadow-sm focus:border-gold focus:ring-2 focus:ring-gold/20">
+          <option value="">No reference</option>
+          {referenceBooks.map((item) => <option key={item.id} value={item.name}>{item.name} · {item.volume_count} vols.</option>)}
+        </select>
+        {book && <div className="mt-3 grid gap-3 sm:grid-cols-3">
+          <div><label htmlFor="reference-volume" className="text-xs font-medium text-ink">Volume <span className="text-ink-soft">(1–{selectedBook?.volume_count ?? "—"})</span></label><select id="reference-volume" value={volume} onChange={(e) => setVolume(e.target.value)} className="mt-1 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-ink shadow-sm focus:border-gold focus:ring-2 focus:ring-gold/20"><option value="">Select volume</option>{volumeOptions.map((item) => <option key={item} value={item}>Volume {item}</option>)}</select></div>
+          <div><label htmlFor="reference-page" className="text-xs font-medium text-ink">Page <span className="text-ink-soft">(up to 999)</span></label><select id="reference-page" value={page} onChange={(e) => setPage(e.target.value)} className="mt-1 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-ink shadow-sm focus:border-gold focus:ring-2 focus:ring-gold/20"><option value="">Select page</option>{pageOptions.map((item) => <option key={item} value={item}>{item}</option>)}</select></div>
+          <div><label htmlFor="reference-number" className="text-xs font-medium text-ink">Hadith number <span className="text-ink-soft">(optional)</span></label><input id="reference-number" value={hadithNumber} onChange={(e) => setHadithNumber(e.target.value)} placeholder="e.g. 42" className="mt-1 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-ink shadow-sm focus:border-gold focus:ring-2 focus:ring-gold/20" /></div>
+        </div>}
+      </div>
       <div>
         <label className="text-[10px] uppercase tracking-[0.2em] text-ink-soft sm:text-xs">
           Arabic (with tashkeel)

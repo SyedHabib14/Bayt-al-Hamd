@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useAuth, clearAuth, getToken, getUser, isTokenExpired } from "@/lib/auth-store";
-import { Menu, X, LayoutDashboard, BookOpen, Users, ShieldAlert, LogOut } from "lucide-react";
+import { Menu, X, LayoutDashboard, BookOpen, Users, ShieldAlert, LogOut, Library } from "lucide-react";
 
 export const Route = createFileRoute("/_admin")({
   component: AdminLayout,
@@ -10,6 +10,7 @@ export const Route = createFileRoute("/_admin")({
 const ADMIN_NAV = [
   { to: "/admin" as const, label: "Dashboard", icon: LayoutDashboard },
   { to: "/admin/majalis" as const, label: "Majalis", icon: BookOpen },
+  { to: "/admin/books" as const, label: "Books", icon: Library },
   { to: "/admin/users" as const, label: "Users", icon: Users },
   { to: "/admin/audit" as const, label: "Audit", icon: ShieldAlert },
 ];

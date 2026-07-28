@@ -1,11 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useRef, useCallback, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { formatDate } from "@/lib/public-data";
 
 export const Route = createFileRoute("/search")({
-  head: () => ({ meta: [{ title: "Search — Dalīl" }, { name: "description", content: "Search hadiths and majalis." }] }),
+  head: () => ({ meta: [{ title: "Search — Bayt al-Ḥamd" }, { name: "description", content: "Search hadiths and majalis." }] }),
   component: SearchPage,
 });
 
@@ -25,6 +25,7 @@ function SearchPage() {
   const { data, isFetching } = useQuery({
     queryKey: ["search", debouncedQ],
     enabled: debouncedQ.trim().length >= 2,
+    placeholderData: keepPreviousData,
     queryFn: async () => {
       const term = `%${debouncedQ.trim()}%`;
       const [h, m] = await Promise.all([
@@ -50,11 +51,11 @@ function SearchPage() {
           ref={inputRef}
           value={q} onChange={(e) => setQ(e.target.value)}
           placeholder="Search hadiths, majalis, keywords…"
-          className="w-full rounded-md border border-border bg-card px-4 py-3 pr-10 text-base text-ink focus:border-gold focus:outline-none sm:text-lg"
+          className="w-full rounded-full border border-border bg-card px-5 py-3.5 pr-11 text-base text-ink shadow-sm transition-all duration-200 focus:border-gold focus:shadow-[0_0_0_4px_var(--gold-soft)] focus:outline-none sm:text-lg"
           autoFocus
         />
         {isFetching && (
-          <div className="absolute right-3 top-1/2 -translate-y-1/2">
+          <div className="absolute right-4 top-1/2 -translate-y-1/2">
             <div className="h-4 w-4 animate-spin rounded-full border-2 border-gold border-t-transparent" />
           </div>
         )}
@@ -70,9 +71,9 @@ function SearchPage() {
           {data.majalis.length > 0 && (
             <section>
               <h2 className="font-display text-lg text-ink sm:text-xl">Majalis</h2>
-              <ul className="mt-3 divide-y divide-border rounded-md border border-border bg-card">
+              <ul className="mt-3 divide-y divide-border rounded-xl border border-border bg-card shadow-sm">
                 {data.majalis.map((m) => (
-                  <li key={m.id} className="px-4 py-3 sm:px-6">
+                  <li key={m.id} className="px-4 py-3 transition-colors first:rounded-t-xl last:rounded-b-xl hover:bg-secondary/40 sm:px-6">
                     <Link to="/majlis/$id" params={{ id: m.id }} className="block hover:text-gold">
                       <span className="text-[10px] uppercase tracking-[0.25em] text-gold sm:text-xs">{formatDate(m.date)}</span>
                       <span className="ml-0 mt-0.5 block font-display text-base text-ink sm:ml-3 sm:inline sm:text-lg">{m.title}</span>
@@ -87,7 +88,7 @@ function SearchPage() {
               <h2 className="font-display text-lg text-ink sm:text-xl">Ḥadīths</h2>
               <ul className="mt-3 space-y-3 sm:space-y-4">
                 {data.hadiths.map((h) => (
-                  <li key={h.id} className="manuscript p-4 sm:p-6">
+                  <li key={h.id} className="manuscript p-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl sm:p-6">
                     <p className="arabic-text text-xl sm:text-2xl" dir="rtl">{h.arabic_text}</p>
                     <p className="mt-3 font-serif text-sm text-ink sm:text-base">{h.translation_en}</p>
                     <Link to="/hadith/$id" params={{ id: h.id }} className="mt-2 inline-block text-[10px] uppercase tracking-[0.25em] text-gold sm:mt-3 sm:text-xs">

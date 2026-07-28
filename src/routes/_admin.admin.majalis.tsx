@@ -7,7 +7,7 @@ import { authHeaders, useAuth } from "@/lib/auth-store";
 import { Plus, Trash2, Edit3, RefreshCw, BookOpen } from "lucide-react";
 
 export const Route = createFileRoute("/_admin/admin/majalis")({
-  head: () => ({ meta: [{ title: "Majalis · Admin — Dalīl" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Majalis · Admin — Bayt al-Ḥamd" }, { name: "robots", content: "noindex" }] }),
   component: AdminMajalis,
 });
 
@@ -64,18 +64,16 @@ function AdminMajalis() {
   const qc = useQueryClient();
 
   // When navigating to a child route like /admin/majalis/$id/edit,
-  // render <Outlet /> so the edit page component mounts.
+  // render <Outlet /> so the edit page component mounts. Hooks below still
+  // run unconditionally on every render (Rules of Hooks); `enabled` gates
+  // the network request rather than skipping the hook call itself.
   const { pathname } = useLocation();
   const isExactList = pathname === "/admin/majalis";
-
-  if (!isExactList) {
-    return <Outlet />;
-  }
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["admin", "majalis"],
     queryFn: () => listAllMajalis({ headers: authHeaders() }),
-    enabled: Boolean(token),
+    enabled: Boolean(token) && isExactList,
     retry: false,
     staleTime: 30_000,
   });
@@ -97,6 +95,10 @@ function AdminMajalis() {
       qc.setQueryData(["admin", "majalis"], context?.prev);
     },
   });
+
+  if (!isExactList) {
+    return <Outlet />;
+  }
 
   const majalis = Array.isArray(data) ? data : [];
 

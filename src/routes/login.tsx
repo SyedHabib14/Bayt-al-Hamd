@@ -4,7 +4,7 @@ import { cnicLogin } from "@/lib/auth.functions";
 import { setAuth, useAuth } from "@/lib/auth-store";
 
 export const Route = createFileRoute("/login")({
-  head: () => ({ meta: [{ title: "Sign in — Dalīl" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Sign in — Bayt al-Ḥamd" }, { name: "robots", content: "noindex" }] }),
   component: LoginPage,
 });
 
@@ -70,7 +70,7 @@ function LoginPage() {
               inputMode="numeric" autoComplete="off" spellCheck={false}
               value={cnic} onChange={(e) => setCnic(formatCnic(e.target.value))}
               placeholder="XXXXX-XXXXXXX-X"
-              className="w-full rounded-md border border-border bg-card px-4 py-3 font-mono text-base tracking-wide text-ink focus:border-gold focus:outline-none sm:text-lg"
+              className="w-full rounded-md border border-border bg-card px-4 py-3 font-mono text-base tracking-wide text-ink transition-all duration-200 focus:border-gold focus:shadow-[0_0_0_4px_var(--gold-soft)] focus:outline-none sm:text-lg"
             />
           </div>
           {error && (
@@ -79,7 +79,7 @@ function LoginPage() {
             </p>
           )}
           <button disabled={busy}
-            className="w-full rounded-md bg-ink py-3 text-sm font-medium text-parchment hover:bg-ink-soft disabled:opacity-60 transition-colors duration-200">
+            className="w-full rounded-full bg-ink py-3 text-sm font-medium text-parchment shadow-sm transition-all duration-200 hover:bg-gold hover:text-accent-foreground hover:shadow-[0_8px_24px_-8px_var(--gold)] disabled:opacity-60 disabled:hover:bg-ink disabled:hover:text-parchment disabled:hover:shadow-none active:scale-[0.99]">
             {busy ? "Verifying…" : "Enter"}
           </button>
         </form>

@@ -6,7 +6,7 @@ import { authHeaders, useAuth } from "@/lib/auth-store";
 import { Plus, Users, Trash2 } from "lucide-react";
 
 export const Route = createFileRoute("/_admin/admin/users")({
-  head: () => ({ meta: [{ title: "Users · Admin — Dalīl" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Users · Admin — Bayt al-Ḥamd" }, { name: "robots", content: "noindex" }] }),
   component: UsersPage,
 });
 
