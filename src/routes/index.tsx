@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap-utilities.min.css'
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Bayt al-Ḥamd — Every ḥadīth of the majlis, verified" },
+      { title: "Bayt al-Ḥamd — Verify Ḥadīth" },
       { name: "description", content: "Browse majalis and read the authentic Arabic, translation, references and grading for every ḥadīth quoted." },
     ],
   }),
@@ -47,13 +47,13 @@ function Home() {
           </Link>
         </div>
         <div className="gold-rule-shimmer mt-14 max-w-md" />
-        <p style={{"fontSize" : 63, "textAlign" : "center"}} className="mt-6 graph-text text-ink" dir="rtl">
+        <p style={{"fontSize" : 50, "textAlign" : "center"}} className="mt-6 graph-text text-ink" dir="rtl">
         بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
         </p>
       </section>
 
       <section className="mx-auto max-w-6xl px-6 pb-24">
-        <div className="mb-8 flex items-end justify-between">
+        <div className="mb-4 flex items-end justify-between">
           <h2 className="font-display text-3xl text-ink">Recent Majālis</h2>
           <Link to="/majalis" className="text-sm text-ink-soft transition-colors hover:text-gold">View all →</Link>
         </div>
