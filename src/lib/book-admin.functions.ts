@@ -36,7 +36,7 @@ export const listAllBooks = createServerFn({ method: "POST" })
 
 export const getBookById = createServerFn({ method: "POST" })
   .middleware([requireAdminAuth])
-  .inputValidator((d: { id: string }) => d)
+  .validator((d: { id: string }) => d)
   .handler(async ({ data }) => {
     const supabase = getAdminClient();
     const { data: row, error } = await supabase
@@ -50,7 +50,7 @@ export const getBookById = createServerFn({ method: "POST" })
 
 export const saveBook = createServerFn({ method: "POST" })
   .middleware([requireAdminAuth])
-  .inputValidator((d: unknown) => bookInput.parse(d))
+  .validator((d: unknown) => bookInput.parse(d))
   .handler(async ({ data, context }) => {
     const supabase = getAdminClient();
     const auth = context.auth;
@@ -139,7 +139,9 @@ export const uploadBookCover = createServerFn({ method: "POST" })
     }
     const supabase = getAdminClient();
     const ext = file.type.split("/")[1] || "jpg";
-    const path = `${crypto.randomUUID()}.${ext}`;
+    // Storage folders are represented by the object key. Keep every cover in
+    // the named Book Covers folder so the bucket stays tidy and predictable.
+    const path = `Book Covers/${crypto.randomUUID()}.${ext}`;
     const bytes = new Uint8Array(await file.arrayBuffer());
     const { error } = await supabase.storage.from(COVER_BUCKET).upload(path, bytes, {
       contentType: file.type,
