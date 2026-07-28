@@ -54,10 +54,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Dalīl — Verify every ḥadīth of the majlis" },
+      { title: "Bayt al-Ḥamd — Verify every ḥadīth of the majlis" },
       { name: "description", content: "A scholarly archive to authenticate every ḥadīth quoted in a majlis, with the original Arabic, translation, references and grading." },
-      { name: "author", content: "Dalīl" },
-      { property: "og:title", content: "Dalīl — Verify every ḥadīth of the majlis" },
+      { name: "author", content: "Bayt al-Ḥamd" },
+      { property: "og:title", content: "Bayt al-Ḥamd — Verify every ḥadīth of the majlis" },
       { property: "og:description", content: "The original Arabic, translation, references and scholarly notes for every ḥadīth of each majlis." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -111,7 +111,7 @@ function SiteHeader() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
         <Link to="/" className="group flex items-baseline gap-3" onClick={() => setMobileOpen(false)}>
           <span className="font-display text-xl text-ink tracking-tight sm:text-2xl">Dalīl</span>
-          <span className="hidden sm:inline text-[11px] uppercase tracking-[0.3em] text-gold">دَلِيل</span>
+          <span className="hidden sm:inline text-[11px] uppercase tracking-[0.3em] text-gold">بیت الحمد</span>
         </Link>
 
         {/* Desktop nav */}
@@ -185,7 +185,7 @@ function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-border/60 bg-parchment/70">
       <div className="mx-auto max-w-6xl px-6 py-10 text-center">
-        <p className="font-display text-lg text-ink">Dalīl · دَلِيل</p>
+        <p className="font-display text-lg text-ink">Bayt al-Ḥamd · بیت الحمد</p>
         <div className="gold-rule mx-auto my-4 w-24" />
         <p className="text-xs text-ink-soft">
           A scholarly companion for verifying every ḥadīth of the majlis.
