@@ -23,7 +23,7 @@ function Home() {
       <section className="mx-auto max-w-6xl px-6 pt-16 pb-20 sm:pt-24">
         <p className="text-xs uppercase tracking-[0.35em] text-gold">A scholarly archive</p>
         <h1 className="mt-4 max-w-3xl font-display text-5xl leading-[1.05] text-ink sm:text-6xl">
-          Every ḥadīth of the majlis, <em className="font-serif italic text-ink-soft">verified.</em>
+          Every ḥadīth of majlis, <em className="font-serif italic text-ink-soft">verified.</em>
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-ink-soft">
           Dalīl is a companion for readers, students and scholars. For each majlis we publish the original
