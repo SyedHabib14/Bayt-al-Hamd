@@ -27,7 +27,7 @@ function Home() {
       <section className="mx-auto max-w-6xl px-6 pt-16 pb-20 sm:pt-24">
         <p className="eyebrow">A scholarly archive</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[1.05] text-ink sm:text-6xl">
-          Every ḥadīth of the majlis,<span className="font-serif font-semibold text-ink-soft">verified.</span>
+          Every ḥadīth of majlis,<span className="font-serif font-semibold text-ink-soft">verified.</span>
         </h1>
         <p className="mt-6 max-w-3xl text-lg leading-relaxed text-ink-soft">
           Bayt al-Ḥamd is a companion for readers, students and scholars. For each majlis we publish the original
