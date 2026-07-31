@@ -25,11 +25,11 @@ function Home() {
   return (
     <div>
       <section className="mx-auto max-w-6xl px-6 pt-16 pb-20 sm:pt-24">
-        <p className="eyebrow">A scholarly archive</p>
+        <p className="eyebrow">&nbsp;A scholarly archive</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[1.05] text-ink sm:text-6xl">
-          Every ḥadīth of majlis,<span className="font-serif font-semibold text-ink-soft">verified.</span>
+          Every ḥadīth of majlis,<span className="font-serif font-semibold text-gold">verified.</span>
         </h1>
-        <p className="mt-6 max-w-3xl text-lg leading-relaxed text-ink-soft">
+        <p className="thin-text mt-6 max-w-3xl leading-relaxed text-ink-soft">
           Bayt al-Ḥamd is a companion for readers, students and scholars. For each majlis we publish the original
           Arabic with full tashkeel, a reliable English translation, the primary references and short
           scholarly notes — so no ḥadīth passes unchecked.
@@ -63,7 +63,7 @@ function Home() {
               className="manuscript manuscript-interactive block p-8 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-2xl">
               <p className="eyebrow">{formatDate(m.date)}</p>
               <h3 className="mt-3 font-display text-2xl text-ink">{m.title}</h3>
-              {m.description && <p className="mt-3 text-sm leading-relaxed text-ink-soft line-clamp-3">{m.description}</p>}
+              {m.description && <p className="mt-3 thin-text text-lg leading-relaxed text-ink-soft line-clamp-3">{m.description}</p>}
               <div className="gold-rule mt-6 w-16" />
             </Link>
           ))}

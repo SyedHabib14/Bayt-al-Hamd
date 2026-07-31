@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      articles: {
+        Row: {
+          id: string
+          title: string
+          topic: string
+          article_link: string
+          cover_image_url: string | null
+          cover_image_path: string | null
+          short_description: string | null
+          publish_date: string
+          is_published: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          title: string
+          topic: string
+          article_link: string
+          cover_image_url?: string | null
+          cover_image_path?: string | null
+          short_description?: string | null
+          publish_date?: string
+          is_published?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          title?: string
+          topic?: string
+          article_link?: string
+          cover_image_url?: string | null
+          cover_image_path?: string | null
+          short_description?: string | null
+          publish_date?: string
+          is_published?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       reference_books: {
         Row: { id: string; name: string; volume_count: number; description: string | null; is_active: boolean; position: number; created_at: string }
         Insert: { id?: string; name: string; volume_count: number; description?: string | null; is_active?: boolean; position?: number; created_at?: string }

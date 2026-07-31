@@ -14,6 +14,7 @@ import { Route as SearchRouteImport } from './routes/search'
 import { Route as MajalisRouteImport } from './routes/majalis'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as BooksRouteImport } from './routes/books'
+import { Route as ArticlesRouteImport } from './routes/articles'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdminRouteImport } from './routes/_admin'
 import { Route as IndexRouteImport } from './routes/index'
@@ -25,6 +26,7 @@ import { Route as AdminAdminUsersRouteImport } from './routes/_admin.admin.users
 import { Route as AdminAdminMajalisRouteImport } from './routes/_admin.admin.majalis'
 import { Route as AdminAdminBooksRouteImport } from './routes/_admin.admin.books'
 import { Route as AdminAdminAuditRouteImport } from './routes/_admin.admin.audit'
+import { Route as AdminAdminArticlesRouteImport } from './routes/_admin.admin.articles'
 import { Route as AdminAdminMajalisIdEditRouteImport } from './routes/_admin.admin.majalis.$id.edit'
 import { Route as AdminAdminBooksIdEditRouteImport } from './routes/_admin.admin.books.$id.edit'
 
@@ -51,6 +53,11 @@ const LoginRoute = LoginRouteImport.update({
 const BooksRoute = BooksRouteImport.update({
   id: '/books',
   path: '/books',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArticlesRoute = ArticlesRouteImport.update({
+  id: '/articles',
+  path: '/articles',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -107,6 +114,11 @@ const AdminAdminAuditRoute = AdminAdminAuditRouteImport.update({
   path: '/audit',
   getParentRoute: () => AdminAdminRoute,
 } as any)
+const AdminAdminArticlesRoute = AdminAdminArticlesRouteImport.update({
+  id: '/articles',
+  path: '/articles',
+  getParentRoute: () => AdminAdminRoute,
+} as any)
 const AdminAdminMajalisIdEditRoute = AdminAdminMajalisIdEditRouteImport.update({
   id: '/$id/edit',
   path: '/$id/edit',
@@ -121,6 +133,7 @@ const AdminAdminBooksIdEditRoute = AdminAdminBooksIdEditRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/articles': typeof ArticlesRoute
   '/books': typeof BooksRoute
   '/login': typeof LoginRoute
   '/majalis': typeof MajalisRoute
@@ -130,6 +143,7 @@ export interface FileRoutesByFullPath {
   '/book/$id': typeof BookIdRoute
   '/hadith/$id': typeof HadithIdRoute
   '/majlis/$id': typeof MajlisIdRoute
+  '/admin/articles': typeof AdminAdminArticlesRoute
   '/admin/audit': typeof AdminAdminAuditRoute
   '/admin/books': typeof AdminAdminBooksRouteWithChildren
   '/admin/majalis': typeof AdminAdminMajalisRouteWithChildren
@@ -140,6 +154,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/articles': typeof ArticlesRoute
   '/books': typeof BooksRoute
   '/login': typeof LoginRoute
   '/majalis': typeof MajalisRoute
@@ -149,6 +164,7 @@ export interface FileRoutesByTo {
   '/book/$id': typeof BookIdRoute
   '/hadith/$id': typeof HadithIdRoute
   '/majlis/$id': typeof MajlisIdRoute
+  '/admin/articles': typeof AdminAdminArticlesRoute
   '/admin/audit': typeof AdminAdminAuditRoute
   '/admin/books': typeof AdminAdminBooksRouteWithChildren
   '/admin/majalis': typeof AdminAdminMajalisRouteWithChildren
@@ -161,6 +177,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_admin': typeof AdminRouteWithChildren
   '/about': typeof AboutRoute
+  '/articles': typeof ArticlesRoute
   '/books': typeof BooksRoute
   '/login': typeof LoginRoute
   '/majalis': typeof MajalisRoute
@@ -170,6 +187,7 @@ export interface FileRoutesById {
   '/book/$id': typeof BookIdRoute
   '/hadith/$id': typeof HadithIdRoute
   '/majlis/$id': typeof MajlisIdRoute
+  '/_admin/admin/articles': typeof AdminAdminArticlesRoute
   '/_admin/admin/audit': typeof AdminAdminAuditRoute
   '/_admin/admin/books': typeof AdminAdminBooksRouteWithChildren
   '/_admin/admin/majalis': typeof AdminAdminMajalisRouteWithChildren
@@ -182,6 +200,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/articles'
     | '/books'
     | '/login'
     | '/majalis'
@@ -191,6 +210,7 @@ export interface FileRouteTypes {
     | '/book/$id'
     | '/hadith/$id'
     | '/majlis/$id'
+    | '/admin/articles'
     | '/admin/audit'
     | '/admin/books'
     | '/admin/majalis'
@@ -201,6 +221,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/articles'
     | '/books'
     | '/login'
     | '/majalis'
@@ -210,6 +231,7 @@ export interface FileRouteTypes {
     | '/book/$id'
     | '/hadith/$id'
     | '/majlis/$id'
+    | '/admin/articles'
     | '/admin/audit'
     | '/admin/books'
     | '/admin/majalis'
@@ -221,6 +243,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_admin'
     | '/about'
+    | '/articles'
     | '/books'
     | '/login'
     | '/majalis'
@@ -230,6 +253,7 @@ export interface FileRouteTypes {
     | '/book/$id'
     | '/hadith/$id'
     | '/majlis/$id'
+    | '/_admin/admin/articles'
     | '/_admin/admin/audit'
     | '/_admin/admin/books'
     | '/_admin/admin/majalis'
@@ -242,6 +266,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
   AboutRoute: typeof AboutRoute
+  ArticlesRoute: typeof ArticlesRoute
   BooksRoute: typeof BooksRoute
   LoginRoute: typeof LoginRoute
   MajalisRoute: typeof MajalisRoute
@@ -287,6 +312,13 @@ declare module '@tanstack/react-router' {
       path: '/books'
       fullPath: '/books'
       preLoaderRoute: typeof BooksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/articles': {
+      id: '/articles'
+      path: '/articles'
+      fullPath: '/articles'
+      preLoaderRoute: typeof ArticlesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -366,6 +398,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdminAuditRouteImport
       parentRoute: typeof AdminAdminRoute
     }
+    '/_admin/admin/articles': {
+      id: '/_admin/admin/articles'
+      path: '/articles'
+      fullPath: '/admin/articles'
+      preLoaderRoute: typeof AdminAdminArticlesRouteImport
+      parentRoute: typeof AdminAdminRoute
+    }
     '/_admin/admin/majalis/$id/edit': {
       id: '/_admin/admin/majalis/$id/edit'
       path: '/$id/edit'
@@ -407,6 +446,7 @@ const AdminAdminMajalisRouteWithChildren =
   AdminAdminMajalisRoute._addFileChildren(AdminAdminMajalisRouteChildren)
 
 interface AdminAdminRouteChildren {
+  AdminAdminArticlesRoute: typeof AdminAdminArticlesRoute
   AdminAdminAuditRoute: typeof AdminAdminAuditRoute
   AdminAdminBooksRoute: typeof AdminAdminBooksRouteWithChildren
   AdminAdminMajalisRoute: typeof AdminAdminMajalisRouteWithChildren
@@ -414,6 +454,7 @@ interface AdminAdminRouteChildren {
 }
 
 const AdminAdminRouteChildren: AdminAdminRouteChildren = {
+  AdminAdminArticlesRoute: AdminAdminArticlesRoute,
   AdminAdminAuditRoute: AdminAdminAuditRoute,
   AdminAdminBooksRoute: AdminAdminBooksRouteWithChildren,
   AdminAdminMajalisRoute: AdminAdminMajalisRouteWithChildren,
@@ -438,6 +479,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
   AboutRoute: AboutRoute,
+  ArticlesRoute: ArticlesRoute,
   BooksRoute: BooksRoute,
   LoginRoute: LoginRoute,
   MajalisRoute: MajalisRoute,

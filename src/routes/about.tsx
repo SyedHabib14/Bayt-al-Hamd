@@ -38,7 +38,7 @@ function About() {
           />
         </div>
         {/* <p className="mt-5 font-display text-xl tracking-wide text-gold">Bayt al-Ḥamd</p> */}
-        <p className="text-xs uppercase -mt-16 ml-4 tracking-[0.28em] text-ink-soft">A house of praise and remembrance</p>
+        <p className="text-xs uppercase -mt-4 md:-mt-16 ml-4 tracking-[0.28em] text-ink-soft">A house of praise and remembrance</p>
       </div>
     </div>
   );

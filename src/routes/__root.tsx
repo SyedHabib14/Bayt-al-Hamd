@@ -73,6 +73,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Amiri:wght@400;500;600;700&family=Amiri+Quran&family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=Scheherazade+New:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" },
       { rel: "prefetch", href: "/majalis" },
       { rel: "prefetch", href: "/books" },
+      { rel: "prefetch", href: "/articles" },
       { rel: "prefetch", href: "/search" },
       { rel: "prefetch", href: "/about" },
     ],
@@ -111,19 +112,32 @@ function SiteHeader() {
   return (
     <header className="sticky top-0 z-30 border-b border-border/60 bg-parchment/80 shadow-[0_1px_0_rgba(0,0,0,0.02)] backdrop-blur-md supports-[backdrop-filter]:bg-parchment/70">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
-        <Link to="/" className="group flex items-baseline gap-3" onClick={() => setMobileOpen(false)}>
-          <span className="font-display text-xl text-ink tracking-tight transition-colors duration-200 group-hover:text-gold sm:text-2xl">Bayt al-Ḥamd</span>
-          <span className="hidden sm:inline text-[12px] graph-text uppercase tracking-[0.01em] text-gold">بَيْتُ الْحَمْدِ</span>
+        <Link
+          to="/"
+          className="group header-logo"
+          aria-label="Bayt al-Ḥamd home"
+          onClick={() => setMobileOpen(false)}
+        >
+          <span className="header-logo-shine" aria-hidden="true" />
+          <img
+            src="/BaH.png"
+            alt="Bayt al-Ḥamd"
+            className="header-logo-image"
+            width={1024}
+            height={1024}
+            decoding="async"
+          />
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-6 text-sm font-medium text-ink-soft sm:flex">
+        <nav className="hidden items-center gap-6 text-lg thin-text dark:text-white sm:flex">
           <Link to="/majalis" className="nav-link" activeProps={{ className: "nav-link nav-link-active" }}>Majalis</Link>
           <Link to="/books" className="nav-link" activeProps={{ className: "nav-link nav-link-active" }}>Books</Link>
+           <Link to="/articles" className="nav-link" activeProps={{ className: "nav-link nav-link-active" }}>Articles</Link>
           <Link to="/search" className="nav-link" activeProps={{ className: "nav-link nav-link-active" }}>Search</Link>
           <Link to="/about" className="nav-link" activeProps={{ className: "nav-link nav-link-active" }}>About</Link>
           <button type="button" onClick={toggleTheme} aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
-            className="group relative flex h-8 w-14 items-center rounded-full border border-gold/50 bg-secondary p-1 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-gold">
+            className="group relative flex h-8 w-14 items-center rounded-full border border-gold/50 p-1 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-gold">
             <span className={`flex h-6 w-6 items-center justify-center rounded-full bg-gold text-accent-foreground shadow-sm transition-transform duration-300 ease-out ${dark ? "translate-x-6" : "translate-x-0"}`}>
               {dark ? <Moon size={14} /> : <Sun size={14} />}
             </span>
@@ -139,7 +153,7 @@ function SiteHeader() {
               >Sign out</button>
             </div>
           ) : (
-            <Link to="/login" className="rounded-full border border-ink/20 px-3.5 py-1.5 text-xs text-ink transition-colors duration-200 hover:border-gold hover:text-gold">
+            <Link to="/login" className="rounded-full border border-ink/20 px-3.5 py-1.5 text-lg thin-text transition-rounded-full border border-ink/20 px-3.5 py-1.5 text-lg thin-text transition-colors duration-200 hover:border-gold hover:text-gold duration-200 hover:border-gold hover:text-gold">
               Sign in
             </Link>
           )}
@@ -165,10 +179,11 @@ function SiteHeader() {
       {mobileOpen && (
         <div className="border-t border-border/60 px-4 py-4 sm:hidden">
           <nav className="flex flex-col gap-2">
-            <Link to="/majalis" className="rounded-md px-4 py-3 text-sm font-medium text-ink-soft hover:bg-secondary" onClick={() => setMobileOpen(false)}>Majalis</Link>
-            <Link to="/books" className="rounded-md px-4 py-3 text-sm font-medium text-ink-soft hover:bg-secondary" onClick={() => setMobileOpen(false)}>Books</Link>
-            <Link to="/search" className="rounded-md px-4 py-3 text-sm font-medium text-ink-soft hover:bg-secondary" onClick={() => setMobileOpen(false)}>Search</Link>
-            <Link to="/about" className="rounded-md px-4 py-3 text-sm font-medium text-ink-soft hover:bg-secondary" onClick={() => setMobileOpen(false)}>About</Link>
+            <Link to="/majalis" className="thin-text header-mobile-tab rounded-md px-4 py-3 text-ink-soft hover:bg-secondary" onClick={() => setMobileOpen(false)}>Majalis</Link>
+            <Link to="/books" className="thin-text header-mobile-tab rounded-md px-4 py-3 text-ink-soft hover:bg-secondary" onClick={() => setMobileOpen(false)}>Books</Link>
+            <Link to="/articles" className="thin-text header-mobile-tab rounded-md px-4 py-3 text-ink-soft hover:bg-secondary" onClick={() => setMobileOpen(false)}>Articles</Link>
+            <Link to="/search" className="thin-text header-mobile-tab rounded-md px-4 py-3 text-ink-soft hover:bg-secondary" onClick={() => setMobileOpen(false)}>Search</Link>
+            <Link to="/about" className="thin-text header-mobile-tab rounded-md px-4 py-3 text-ink-soft hover:bg-secondary" onClick={() => setMobileOpen(false)}>About</Link>
             {user ? (
               <>
                 <Link to="/admin" className="rounded-md bg-ink px-4 py-3 text-center text-sm font-medium text-parchment" onClick={() => setMobileOpen(false)}>Admin</Link>
@@ -195,6 +210,7 @@ function SiteFooter() {
           <Link to="/majalis" className="hover:text-gold">Majalis</Link>
           <Link to="/books" className="hover:text-gold">Books</Link>
           <Link to="/search" className="hover:text-gold">Search</Link>
+          <Link to="/articles" className="hover:text-gold">Articles</Link>
           <Link to="/about" className="hover:text-gold">About</Link>
         </nav>
         <p className="mt-5 text-xs text-ink-soft/70">
