@@ -77,9 +77,9 @@ function BookCard({
             {book.title}
           </h3>
         </Link>
-        {book.author && <p className="mt-1 text-xs text-ink-soft sm:text-sm">{book.author}</p>}
+        {book.author && <p className="mt-1 font-semibold font-italic text-ink-soft sm:text-sm">{book.author}</p>}
         {book.description && (
-          <p className="mt-2 hidden text-xs leading-relaxed text-ink-soft/90 line-clamp-2 sm:block">
+          <p className="mt-2 hidden font-display text-sm leading-relaxed text-ink-soft/90 line-clamp-2 sm:block">
             {book.description}
           </p>
         )}

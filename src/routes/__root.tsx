@@ -1,14 +1,15 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import{ QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet, Link, createRootRouteWithContext, useRouter,
   HeadContent, Scripts,
 } from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import { Moon, Sun, Menu, X } from "lucide-react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { useAuth, clearAuth } from "@/lib/auth-store";
+import { ambientGlowConfig } from "@/lib/ambient-glow-config";
 
 function NotFoundComponent() {
   return (
@@ -110,7 +111,7 @@ function SiteHeader() {
     document.documentElement.classList.toggle("dark", next);
   }
   return (
-    <header className="sticky top-0 z-30 border-b border-border/60 bg-parchment/80 shadow-[0_1px_0_rgba(0,0,0,0.02)] backdrop-blur-md supports-[backdrop-filter]:bg-parchment/70">
+    <header className="sticky top-0 z-30 border-b border-border/60 bg-parchment/80 shadow-[0_1px_0_rgba(0,0,0,0.02)] backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-parchment/40">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
         <Link
           to="/"
@@ -204,16 +205,16 @@ function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-border/60 bg-parchment/70">
       <div className="mx-auto max-w-6xl px-6 py-10 text-center">
-        <p className="font-display text-lg text-ink">Bayt al-Ḥamd</p>
+        <p className="font-display font-semibold text-lg text-ink">Bayt al-Ḥamd</p>
         <div className="gold-rule mx-auto my-4 w-24" />
-        <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-ink-soft">
+        <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 thin-text text-lg text-ink-soft">
           <Link to="/majalis" className="hover:text-gold">Majalis</Link>
           <Link to="/books" className="hover:text-gold">Books</Link>
           <Link to="/search" className="hover:text-gold">Search</Link>
           <Link to="/articles" className="hover:text-gold">Articles</Link>
           <Link to="/about" className="hover:text-gold">About</Link>
         </nav>
-        <p className="mt-5 text-xs text-ink-soft/70">
+        <p className="mt-3 thin-text text-lg text-ink-soft/70">
           A scholarly companion for verifying every ḥadīth of the majlis.
         </p>
       </div>
@@ -223,9 +224,36 @@ function SiteFooter() {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const glowStyle = {
+    "--ambient-glow-easing": ambientGlowConfig.easing,
+    "--ambient-glow-blend-mode": ambientGlowConfig.blendMode,
+    "--ambient-glow-opacity": ambientGlowConfig.opacity.toString(),
+  } as CSSProperties;
+
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen flex-col">
+      <div className="ambient-glow-shell flex min-h-screen flex-col" style={glowStyle}>
+        <div className="ambient-glow-viewport" aria-hidden="true">
+          {ambientGlowConfig.layers.map((layer, index) => {
+            const layerStyle = {
+              "--ambient-glow-layer-color": layer.color,
+              "--ambient-glow-layer-size": layer.size,
+              "--ambient-glow-layer-blur": layer.blur,
+              "--ambient-glow-layer-duration": layer.duration,
+              "--ambient-glow-layer-top": layer.offsetTop,
+              ...("offsetLeft" in layer ? { "--ambient-glow-layer-left": layer.offsetLeft } : {}),
+              ...("offsetRight" in layer ? { "--ambient-glow-layer-right": layer.offsetRight } : {}),
+            } as CSSProperties;
+
+            return (
+              <div
+                key={`${layer.color}-${index}`}
+                className="ambient-glow-layer"
+                style={layerStyle}
+              />
+            );
+          })}
+        </div>
         <SiteHeader />
         <main className="flex-1">
           <Outlet />

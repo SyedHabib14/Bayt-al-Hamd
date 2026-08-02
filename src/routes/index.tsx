@@ -42,7 +42,7 @@ function Home() {
             Browse Majālis
             <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
           </Link>
-          <Link to="/about" className="text-sm text-ink-soft underline decoration-gold/60 underline-offset-4 transition-colors hover:text-ink hover:decoration-gold">
+          <Link to="/about" className="text-2sm text-ink-soft font-light underline decoration-gold/60 underline-offset-4 transition-colors hover:text-ink hover:decoration-gold">
             What is Bayt al-Ḥamd?
           </Link>
         </div>
@@ -86,7 +86,7 @@ function Home() {
             {books.map((b) => (
               <Link key={b.id} to="/book/$id" params={{ id: b.id }} className="group block">
                 <BookCover src={b.cover_url} title={b.title} sizes="(min-width: 640px) 18vw, 30vw" />
-                <p className="mt-2 truncate text-xs text-ink-soft transition-colors group-hover:text-gold sm:text-sm">{b.title}</p>
+                <p className="mt-2 truncate thin-text text-xs text-center text-ink-soft transition-colors group-hover:text-gold sm:text-sm">{b.title}</p>
               </Link>
             ))}
           </div>

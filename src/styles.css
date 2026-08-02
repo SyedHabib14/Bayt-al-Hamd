@@ -94,6 +94,18 @@
 :root {
   --radius: 0.5rem;
 
+  /* Ambient glow palette shared across the app shell. */
+  --ambient-glow-primary: oklch(0.86 0.1 76 / 0.74);
+  --ambient-glow-secondary: oklch(0.78 0.11 36 / 0.34);
+  --ambient-glow-accent: oklch(0.93 0.06 90 / 0.44);
+  --ambient-glow-size: clamp(22rem, 36vw, 36rem);
+  --ambient-glow-blur: 110px;
+  --ambient-glow-offset-top: -2rem;
+  --ambient-glow-offset-left: min(2vw, 2rem);
+  --ambient-glow-offset-right: clamp(1rem, 8vw, 4rem);
+  --ambient-glow-duration: 18s;
+  --ambient-glow-opacity: 0.95;
+
   /* Parchment palette */
   --parchment: oklch(0.975 0.015 85);
   --parchment-deep: oklch(0.94 0.025 82);
@@ -167,6 +179,40 @@
       radial-gradient(700px 500px at 50% 100%, oklch(0.93 0.03 80 / 0.35), transparent 60%);
       background-attachment: fixed;
     transition: background-color 0.4s var(--ease-out-premium), color 0.4s var(--ease-out-premium);
+  }
+
+  .ambient-glow-shell {
+    position: relative;
+    isolation: isolate;
+  }
+
+  /* Dedicated clipping viewport for the glow layers. Keeping the clip here —
+     instead of on the shell — prevents it from becoming a backdrop root that
+     confines what the sticky header's backdrop-filter can sample. */
+  .ambient-glow-viewport {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: clip;
+    pointer-events: none;
+  }
+
+  .ambient-glow-layer {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 9999px;
+    filter: blur(var(--ambient-glow-layer-blur));
+    mix-blend-mode: var(--ambient-glow-blend-mode, screen);
+    opacity: var(--ambient-glow-opacity, 0.95);
+    transform: translate3d(0, 0, 0);
+    will-change: transform, opacity;
+    width: var(--ambient-glow-layer-size);
+    height: var(--ambient-glow-layer-size);
+    top: var(--ambient-glow-layer-top, 6rem);
+    left: var(--ambient-glow-layer-left, auto);
+    right: var(--ambient-glow-layer-right, auto);
+    background: radial-gradient(circle, var(--ambient-glow-layer-color) 0%, transparent 72%);
+    animation: ambient-float var(--ambient-glow-layer-duration) var(--ambient-glow-easing, cubic-bezier(0.45, 0, 0.55, 1)) infinite alternate;
   }
   .dark body {
     background-image:
@@ -276,6 +322,21 @@
   15% { opacity: 1; }
   55% { opacity: 1; }
   100% { transform: translateX(420%); opacity: 0; }
+}
+
+@keyframes ambient-float {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.98);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translate3d(1.5rem, -1.2rem, 0) scale(1.04);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate3d(-0.8rem, 1.2rem, 0) scale(1.01);
+    opacity: 0.87;
+  }
 }
 
 @utility arabic-text {

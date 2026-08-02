@@ -77,24 +77,18 @@ function ArticlesPage() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-20 opacity-70 [background-image:radial-gradient(circle_at_1px_1px,rgba(120,113,108,0.16)_1px,transparent_0)] [background-size:24px_24px] dark:opacity-25"
       />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[42rem] bg-[radial-gradient(ellipse_at_top,rgba(217,119,6,0.16),transparent_58%)] dark:bg-[radial-gradient(ellipse_at_top,rgba(180,83,9,0.16),transparent_58%)]"
-      />
-
       <section className="mx-auto w-full max-w-7xl px-4 pb-20 pt-10 sm:px-6 sm:pt-16 lg:px-8 lg:pb-28">
         <header className="relative overflow-hidden rounded-[2rem] border border-amber-900/10 bg-white/75 px-6 py-10 shadow-[0_30px_90px_-45px_rgba(120,53,15,0.4)] backdrop-blur-xl sm:px-10 sm:py-14 lg:px-16 lg:py-20 dark:border-amber-200/10 dark:bg-stone-900/70">
           <div className="absolute -right-24 -top-24 size-72 rounded-full border border-amber-700/10" />
           <div className="absolute -right-12 -top-12 size-48 rounded-full border border-amber-700/10" />
           <div className="relative max-w-3xl">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-700/20 bg-amber-50/80 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-amber-900 dark:border-amber-300/15 dark:bg-amber-400/10 dark:text-amber-200">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-700/20 bg-amber-50/80 px-3.5 py-1.5 text-xs font-light uppercase tracking-[0.22em] text-amber-900 dark:border-amber-300/15 dark:bg-amber-400/10 dark:text-amber-200">
               <Feather className="size-3.5" aria-hidden="true" />
-              The written archive
+              The Archive of
             </div>
 
             <h1 className="font-serif text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-7xl">
-              Articles
-              <span className="ml-3 inline-block text-amber-700 dark:text-amber-400">.</span>
+              Articles<span className="ml-0.5 inline-block text-amber-700 dark:text-amber-400">.</span>
             </h1>
             <p className="mt-5 max-w-2xl thin-text leading-8 text-stone-600 sm:text-xl dark:text-stone-300">
               Carefully gathered reflections, reading links, and study notes,
@@ -106,7 +100,7 @@ function ArticlesPage() {
                 {topics.map((topic) => (
                   <span
                     key={topic}
-                    className="rounded-full border border-stone-200 bg-white/70 px-3 py-1.5 text-xs font-medium text-stone-700 shadow-sm dark:border-stone-700 dark:bg-stone-800/70 dark:text-stone-200"
+                    className="rounded-full border border-stone-200 bg-white/70 px-3 py-1.5 text-xs font-light text-stone-700 shadow-sm dark:border-stone-700 dark:bg-stone-800/70 dark:text-stone-200"
                   >
                     {topic}
                   </span>
@@ -138,17 +132,17 @@ function ArticlesPage() {
                   </div>
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/15 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-stone-950/50" />
-                <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-stone-950/45 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-amber-100 backdrop-blur-md sm:left-7 sm:top-7">
+                <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-stone-950/45 px-3.5 py-2 text-xs font-light uppercase tracking-[0.18em] text-amber-100 backdrop-blur-md sm:left-7 sm:top-7">
                   <Sparkles className="size-3.5" />
                   Featured
                 </div>
               </div>
 
               <div className="relative flex flex-col justify-center p-7 sm:p-10 lg:p-14">
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-semibold uppercase tracking-[0.16em] text-amber-300">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-light uppercase tracking-[0.16em] text-amber-300">
                   <span>{featured.topic}</span>
                   <span className="size-1 rounded-full bg-amber-300/50" />
-                  <span className="inline-flex items-center gap-1.5 text-stone-300">
+                  <span className="inline-flex items-center gap-1.5 font-light text-stone-300">
                     <CalendarDays className="size-3.5" />
                     {formatDate(featured.publish_date)}
                   </span>
@@ -159,12 +153,12 @@ function ArticlesPage() {
                 </h2>
 
                 {featured.short_description && (
-                  <p className="mt-5 line-clamp-4 text-base leading-7 text-stone-300 sm:text-lg">
+                  <p className="mt-5 line-clamp-4 thin-text leading-7 text-stone-300 sm:text-xl">
                     {featured.short_description}
                   </p>
                 )}
 
-                <span className="mt-8 inline-flex w-fit items-center gap-2 border-b border-amber-300/40 pb-1.5 text-sm font-semibold text-amber-200 transition group-hover:border-amber-200 group-hover:text-white">
+                <span className="mt-8 inline-flex w-fit items-center gap-2 border-b border-amber-300/40 pb-1.5 text-sm font-light text-amber-200 transition group-hover:border-amber-200 group-hover:text-white">
                   Read featured article
                   <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </span>
@@ -177,7 +171,7 @@ function ArticlesPage() {
           <section className="mt-14 sm:mt-20" aria-labelledby="latest-articles">
             <div className="mb-7 flex items-end justify-between gap-4">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-700 dark:text-amber-400">
+                <p className="text-xs font-light uppercase tracking-[0.22em] text-amber-700 dark:text-amber-400">
                   Continue reading
                 </p>
                 <h2 id="latest-articles" className="mt-2 font-serif text-3xl font-semibold sm:text-4xl">
@@ -235,7 +229,7 @@ function ArticleCard({ article }: { article: ArticleRow }) {
             </div>
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-stone-950/45 via-transparent to-transparent" />
-          <span className="absolute bottom-4 left-4 rounded-full border border-white/20 bg-stone-950/50 px-3 py-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-amber-100 backdrop-blur-md">
+          <span className="absolute bottom-4 left-4 rounded-full border border-white/20 bg-stone-950/50 px-3 py-1.5 text-[0.7rem] font-light uppercase tracking-[0.16em] text-amber-100 backdrop-blur-md">
             {article.topic}
           </span>
         </div>
@@ -251,12 +245,12 @@ function ArticleCard({ article }: { article: ArticleRow }) {
           </h3>
 
           {article.short_description && (
-            <p className="mt-3 line-clamp-3 text-sm leading-6 text-stone-600 dark:text-stone-400">
+            <p className="mt-3 line-clamp-3 thin-text text-lg leading-6 text-stone-600 dark:text-stone-400">
               {article.short_description}
             </p>
           )}
 
-          <span className="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-semibold text-amber-800 dark:text-amber-300">
+          <span className="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-light text-amber-800 dark:text-amber-300">
             Read article
             <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </span>
