@@ -32,9 +32,9 @@ function MajalisList() {
               <div className="min-w-0">
                 <p style={{"fontSize" : 14}} className="eyebrow">{formatDate(m.date)}</p>
                 <h2 className="mt-2 font-display text-2xl text-ink transition-colors duration-200 group-hover:text-gold">{m.title}</h2>
-                {m.description && <p className="display-6 mt-2 max-w-2xl text-2sm leading-relaxed text-ink-soft">{m.description}</p>}
+                {m.description && <p className="thin-text mt-2 max-w-2xl text-xl leading-relaxed text-ink-soft">{m.description}</p>}
               </div>
-              <span className="shrink-0 text-sm text-ink-soft transition-all duration-200 group-hover:translate-x-1 group-hover:text-ink">
+              <span className="shrink-0 thin-text text-lg text-ink-soft transition-all duration-200 group-hover:translate-x-1 group-hover:text-ink">
                 Read →
               </span>
             </Link>

@@ -24,7 +24,7 @@ function BooksLibrary() {
     <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
       <p className="text-xs uppercase tracking-[0.35em] text-gold text-center -mb-16">The library</p>
       <h1 style={{"fontSize" : 100, "textAlign" : "center"}} className="urdu-text text-ink sm:text-10xl">کتب خانہ</h1>
-      <p className="-mt-10 max-w-2xl text-center mx-auto display-6 text-ink-soft">
+      <p className="-mt-10 thin-text max-w-3xl text-center mx-auto display-6 text-ink-soft">
         A curated shelf of classical texts and ḥadīth collections.
       </p>
       <div className="gold-rule mt-8 w-24 mx-auto" />

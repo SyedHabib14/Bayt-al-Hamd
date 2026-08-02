@@ -51,7 +51,7 @@ function SearchPage() {
           ref={inputRef}
           value={q} onChange={(e) => setQ(e.target.value)}
           placeholder="Search hadiths, majalis, keywords…"
-          className="w-full rounded-full border border-border bg-card px-5 py-3.5 pr-11 text-base text-ink shadow-sm transition-all duration-200 focus:border-gold focus:shadow-[0_0_0_4px_var(--gold-soft)] focus:outline-none sm:text-lg"
+          className="w-full rounded-full border border-border bg-card px-5 py-3.5 pr-11 thin-text text-ink shadow-sm transition-all duration-200 focus:border-gold focus:shadow-[0_0_0_4px_var(--gold-soft)] focus:outline-none sm:text-lg"
           autoFocus
         />
         {isFetching && (
@@ -61,10 +61,10 @@ function SearchPage() {
         )}
       </div>
       {debouncedQ.trim().length < 2 && debouncedQ.trim().length > 0 && (
-        <p className="mt-4 text-sm text-ink-soft">Enter at least 2 characters.</p>
+        <p className="mt-4 -text text-lg text-ink-soft">Enter at least 2 characters.</p>
       )}
       {debouncedQ.trim().length < 2 && debouncedQ.trim().length === 0 && (
-        <p className="mt-6 text-sm text-ink-soft">Enter at least 2 characters to search.</p>
+        <p className="mt-6 thin-text text-lg text-ink-soft">Enter at least 2 characters to search.</p>
       )}
       {data && (
         <div className="mt-8 space-y-8 sm:mt-10 sm:space-y-10">
