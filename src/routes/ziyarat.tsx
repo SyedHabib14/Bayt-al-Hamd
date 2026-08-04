@@ -47,7 +47,23 @@ function ZiyaratIndex() {
     <main className="ambient-glow-shell mx-auto min-h-screen w-full max-w-7xl px-4 py-12 sm:px-6 lg:py-20">
       <header className="mx-auto max-w-3xl text-center">
         <p className="font-light eyebrow">Devotions of love and longing</p>
-        <h1 style={{"fontSize" : 100, "textAlign" : "center"}} className="-mt-16 -mb-16 urdu-text text-ink sm:text-10xl">زیارات و مناجات</h1>
+        <h1
+          style={{
+            fontSize: "clamp(2.25rem, 8vw, 100px)",
+          }}
+          className="
+            -mt-2
+            -mb-4
+            sm:-mt-16
+            sm:-mb-16
+            text-center
+            urdu-text
+            text-ink
+            whitespace-nowrap
+          "
+        >
+          زیارات و مناجات
+        </h1>
         <div className="mx-auto my-6 w-44 gold-rule-shimmer" />
         <p className="thin-text font-serif text-base leading-8 text-ink-soft sm:text-xl">Arabic texts and faithful English translations for visitation and remembrance.</p>
       </header>
