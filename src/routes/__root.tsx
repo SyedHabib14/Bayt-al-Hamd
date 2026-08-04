@@ -75,6 +75,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "prefetch", href: "/majalis" },
       { rel: "prefetch", href: "/books" },
       { rel: "prefetch", href: "/articles" },
+      { rel: "prefetch", href: "/ziyarat" },
       { rel: "prefetch", href: "/search" },
       { rel: "prefetch", href: "/about" },
     ],
@@ -134,7 +135,8 @@ function SiteHeader() {
         <nav className="hidden items-center gap-6 text-lg thin-text dark:text-white sm:flex">
           <Link to="/majalis" className="nav-link" activeProps={{ className: "nav-link nav-link-active" }}>Majalis</Link>
           <Link to="/books" className="nav-link" activeProps={{ className: "nav-link nav-link-active" }}>Books</Link>
-           <Link to="/articles" className="nav-link" activeProps={{ className: "nav-link nav-link-active" }}>Articles</Link>
+          <Link to="/articles" className="nav-link" activeProps={{ className: "nav-link nav-link-active" }}>Articles</Link>
+          <Link to="/ziyarat" className="nav-link" activeProps={{ className: "nav-link nav-link-active" }}>Ziyārat & Munājāt</Link>
           <Link to="/search" className="nav-link" activeProps={{ className: "nav-link nav-link-active" }}>Search</Link>
           <Link to="/about" className="nav-link" activeProps={{ className: "nav-link nav-link-active" }}>About</Link>
           <button type="button" onClick={toggleTheme} aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
@@ -183,6 +185,7 @@ function SiteHeader() {
             <Link to="/majalis" className="thin-text header-mobile-tab rounded-md px-4 py-3 text-ink-soft hover:bg-secondary" onClick={() => setMobileOpen(false)}>Majalis</Link>
             <Link to="/books" className="thin-text header-mobile-tab rounded-md px-4 py-3 text-ink-soft hover:bg-secondary" onClick={() => setMobileOpen(false)}>Books</Link>
             <Link to="/articles" className="thin-text header-mobile-tab rounded-md px-4 py-3 text-ink-soft hover:bg-secondary" onClick={() => setMobileOpen(false)}>Articles</Link>
+            <Link to="/ziyarat" className="thin-text header-mobile-tab rounded-md px-4 py-3 text-ink-soft hover:bg-secondary" onClick={() => setMobileOpen(false)}>Ziyārat & Munājāt</Link>
             <Link to="/search" className="thin-text header-mobile-tab rounded-md px-4 py-3 text-ink-soft hover:bg-secondary" onClick={() => setMobileOpen(false)}>Search</Link>
             <Link to="/about" className="thin-text header-mobile-tab rounded-md px-4 py-3 text-ink-soft hover:bg-secondary" onClick={() => setMobileOpen(false)}>About</Link>
             {user ? (
@@ -210,8 +213,9 @@ function SiteFooter() {
         <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 thin-text text-lg text-ink-soft">
           <Link to="/majalis" className="hover:text-gold">Majalis</Link>
           <Link to="/books" className="hover:text-gold">Books</Link>
-          <Link to="/search" className="hover:text-gold">Search</Link>
           <Link to="/articles" className="hover:text-gold">Articles</Link>
+          <Link to="/ziyarat" className="hover:text-gold">Ziyārat & Munājāt</Link>
+          <Link to="/search" className="hover:text-gold">Search</Link>
           <Link to="/about" className="hover:text-gold">About</Link>
         </nav>
         <p className="mt-3 thin-text text-lg text-ink-soft/70">
@@ -229,6 +233,12 @@ function RootComponent() {
     "--ambient-glow-blend-mode": ambientGlowConfig.blendMode,
     "--ambient-glow-opacity": ambientGlowConfig.opacity.toString(),
   } as CSSProperties;
+
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/font-cache-sw.js").catch(() => undefined);
+    }
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

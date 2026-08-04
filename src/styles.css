@@ -91,6 +91,21 @@
   text-rendering: optimizeLegibility;
 }
 
+.honorific {
+  display: inline-block;
+  margin-inline: 0.18em;
+  padding: 0.08em 0.42em 0.16em;
+  border: 1px solid color-mix(in srgb, var(--gold) 42%, transparent);
+  border-radius: 999px;
+  color: var(--gold);
+  font-family: "Amiri Quran", "Amiri", var(--font-arabic);
+  font-size: 0.92em;
+  line-height: 1.35;
+  white-space: nowrap;
+  text-shadow: 0 1px 10px color-mix(in srgb, var(--gold) 24%, transparent);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--gold) 12%, transparent), transparent);
+}
+
 :root {
   --radius: 0.5rem;
 

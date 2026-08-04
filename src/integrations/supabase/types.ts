@@ -14,6 +14,66 @@ export type Database = {
   }
   public: {
     Tables: {
+      ziyarat: {
+        Row: {
+          classification: "ziyarat" | "munajat"
+          content_ar: string
+          content_en: string
+          created_at: string
+          created_by: string | null
+          id: string
+          is_published: boolean
+          slug: string
+          title_ar: string
+          title_en: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          classification: "ziyarat" | "munajat"
+          content_ar: string
+          content_en: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_published?: boolean
+          slug: string
+          title_ar: string
+          title_en: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          classification?: "ziyarat" | "munajat"
+          content_ar?: string
+          content_en?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_published?: boolean
+          slug?: string
+          title_ar?: string
+          title_en?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ziyarat_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ziyarat_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       articles: {
         Row: {
           id: string

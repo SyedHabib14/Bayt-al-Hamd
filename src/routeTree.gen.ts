@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ZiyaratRouteImport } from './routes/ziyarat'
 import { Route as UnauthorizedRouteImport } from './routes/unauthorized'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as MajalisRouteImport } from './routes/majalis'
@@ -18,18 +19,26 @@ import { Route as ArticlesRouteImport } from './routes/articles'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdminRouteImport } from './routes/_admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ZiyaratIdRouteImport } from './routes/ziyarat.$id'
 import { Route as MajlisIdRouteImport } from './routes/majlis.$id'
 import { Route as HadithIdRouteImport } from './routes/hadith.$id'
 import { Route as BookIdRouteImport } from './routes/book.$id'
 import { Route as AdminAdminRouteImport } from './routes/_admin.admin'
+import { Route as AdminAdminZiyaratRouteImport } from './routes/_admin.admin.ziyarat'
 import { Route as AdminAdminUsersRouteImport } from './routes/_admin.admin.users'
 import { Route as AdminAdminMajalisRouteImport } from './routes/_admin.admin.majalis'
 import { Route as AdminAdminBooksRouteImport } from './routes/_admin.admin.books'
 import { Route as AdminAdminAuditRouteImport } from './routes/_admin.admin.audit'
 import { Route as AdminAdminArticlesRouteImport } from './routes/_admin.admin.articles'
+import { Route as AdminAdminZiyaratIdEditRouteImport } from './routes/_admin.admin.ziyarat.$id.edit'
 import { Route as AdminAdminMajalisIdEditRouteImport } from './routes/_admin.admin.majalis.$id.edit'
 import { Route as AdminAdminBooksIdEditRouteImport } from './routes/_admin.admin.books.$id.edit'
 
+const ZiyaratRoute = ZiyaratRouteImport.update({
+  id: '/ziyarat',
+  path: '/ziyarat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UnauthorizedRoute = UnauthorizedRouteImport.update({
   id: '/unauthorized',
   path: '/unauthorized',
@@ -74,6 +83,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ZiyaratIdRoute = ZiyaratIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ZiyaratRoute,
+} as any)
 const MajlisIdRoute = MajlisIdRouteImport.update({
   id: '/majlis/$id',
   path: '/majlis/$id',
@@ -93,6 +107,11 @@ const AdminAdminRoute = AdminAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
   getParentRoute: () => AdminRoute,
+} as any)
+const AdminAdminZiyaratRoute = AdminAdminZiyaratRouteImport.update({
+  id: '/ziyarat',
+  path: '/ziyarat',
+  getParentRoute: () => AdminAdminRoute,
 } as any)
 const AdminAdminUsersRoute = AdminAdminUsersRouteImport.update({
   id: '/users',
@@ -119,6 +138,11 @@ const AdminAdminArticlesRoute = AdminAdminArticlesRouteImport.update({
   path: '/articles',
   getParentRoute: () => AdminAdminRoute,
 } as any)
+const AdminAdminZiyaratIdEditRoute = AdminAdminZiyaratIdEditRouteImport.update({
+  id: '/$id/edit',
+  path: '/$id/edit',
+  getParentRoute: () => AdminAdminZiyaratRoute,
+} as any)
 const AdminAdminMajalisIdEditRoute = AdminAdminMajalisIdEditRouteImport.update({
   id: '/$id/edit',
   path: '/$id/edit',
@@ -139,17 +163,21 @@ export interface FileRoutesByFullPath {
   '/majalis': typeof MajalisRoute
   '/search': typeof SearchRoute
   '/unauthorized': typeof UnauthorizedRoute
+  '/ziyarat': typeof ZiyaratRouteWithChildren
   '/admin': typeof AdminAdminRouteWithChildren
   '/book/$id': typeof BookIdRoute
   '/hadith/$id': typeof HadithIdRoute
   '/majlis/$id': typeof MajlisIdRoute
+  '/ziyarat/$id': typeof ZiyaratIdRoute
   '/admin/articles': typeof AdminAdminArticlesRoute
   '/admin/audit': typeof AdminAdminAuditRoute
   '/admin/books': typeof AdminAdminBooksRouteWithChildren
   '/admin/majalis': typeof AdminAdminMajalisRouteWithChildren
   '/admin/users': typeof AdminAdminUsersRoute
+  '/admin/ziyarat': typeof AdminAdminZiyaratRouteWithChildren
   '/admin/books/$id/edit': typeof AdminAdminBooksIdEditRoute
   '/admin/majalis/$id/edit': typeof AdminAdminMajalisIdEditRoute
+  '/admin/ziyarat/$id/edit': typeof AdminAdminZiyaratIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -160,17 +188,21 @@ export interface FileRoutesByTo {
   '/majalis': typeof MajalisRoute
   '/search': typeof SearchRoute
   '/unauthorized': typeof UnauthorizedRoute
+  '/ziyarat': typeof ZiyaratRouteWithChildren
   '/admin': typeof AdminAdminRouteWithChildren
   '/book/$id': typeof BookIdRoute
   '/hadith/$id': typeof HadithIdRoute
   '/majlis/$id': typeof MajlisIdRoute
+  '/ziyarat/$id': typeof ZiyaratIdRoute
   '/admin/articles': typeof AdminAdminArticlesRoute
   '/admin/audit': typeof AdminAdminAuditRoute
   '/admin/books': typeof AdminAdminBooksRouteWithChildren
   '/admin/majalis': typeof AdminAdminMajalisRouteWithChildren
   '/admin/users': typeof AdminAdminUsersRoute
+  '/admin/ziyarat': typeof AdminAdminZiyaratRouteWithChildren
   '/admin/books/$id/edit': typeof AdminAdminBooksIdEditRoute
   '/admin/majalis/$id/edit': typeof AdminAdminMajalisIdEditRoute
+  '/admin/ziyarat/$id/edit': typeof AdminAdminZiyaratIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -183,17 +215,21 @@ export interface FileRoutesById {
   '/majalis': typeof MajalisRoute
   '/search': typeof SearchRoute
   '/unauthorized': typeof UnauthorizedRoute
+  '/ziyarat': typeof ZiyaratRouteWithChildren
   '/_admin/admin': typeof AdminAdminRouteWithChildren
   '/book/$id': typeof BookIdRoute
   '/hadith/$id': typeof HadithIdRoute
   '/majlis/$id': typeof MajlisIdRoute
+  '/ziyarat/$id': typeof ZiyaratIdRoute
   '/_admin/admin/articles': typeof AdminAdminArticlesRoute
   '/_admin/admin/audit': typeof AdminAdminAuditRoute
   '/_admin/admin/books': typeof AdminAdminBooksRouteWithChildren
   '/_admin/admin/majalis': typeof AdminAdminMajalisRouteWithChildren
   '/_admin/admin/users': typeof AdminAdminUsersRoute
+  '/_admin/admin/ziyarat': typeof AdminAdminZiyaratRouteWithChildren
   '/_admin/admin/books/$id/edit': typeof AdminAdminBooksIdEditRoute
   '/_admin/admin/majalis/$id/edit': typeof AdminAdminMajalisIdEditRoute
+  '/_admin/admin/ziyarat/$id/edit': typeof AdminAdminZiyaratIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -206,17 +242,21 @@ export interface FileRouteTypes {
     | '/majalis'
     | '/search'
     | '/unauthorized'
+    | '/ziyarat'
     | '/admin'
     | '/book/$id'
     | '/hadith/$id'
     | '/majlis/$id'
+    | '/ziyarat/$id'
     | '/admin/articles'
     | '/admin/audit'
     | '/admin/books'
     | '/admin/majalis'
     | '/admin/users'
+    | '/admin/ziyarat'
     | '/admin/books/$id/edit'
     | '/admin/majalis/$id/edit'
+    | '/admin/ziyarat/$id/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -227,17 +267,21 @@ export interface FileRouteTypes {
     | '/majalis'
     | '/search'
     | '/unauthorized'
+    | '/ziyarat'
     | '/admin'
     | '/book/$id'
     | '/hadith/$id'
     | '/majlis/$id'
+    | '/ziyarat/$id'
     | '/admin/articles'
     | '/admin/audit'
     | '/admin/books'
     | '/admin/majalis'
     | '/admin/users'
+    | '/admin/ziyarat'
     | '/admin/books/$id/edit'
     | '/admin/majalis/$id/edit'
+    | '/admin/ziyarat/$id/edit'
   id:
     | '__root__'
     | '/'
@@ -249,17 +293,21 @@ export interface FileRouteTypes {
     | '/majalis'
     | '/search'
     | '/unauthorized'
+    | '/ziyarat'
     | '/_admin/admin'
     | '/book/$id'
     | '/hadith/$id'
     | '/majlis/$id'
+    | '/ziyarat/$id'
     | '/_admin/admin/articles'
     | '/_admin/admin/audit'
     | '/_admin/admin/books'
     | '/_admin/admin/majalis'
     | '/_admin/admin/users'
+    | '/_admin/admin/ziyarat'
     | '/_admin/admin/books/$id/edit'
     | '/_admin/admin/majalis/$id/edit'
+    | '/_admin/admin/ziyarat/$id/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -272,6 +320,7 @@ export interface RootRouteChildren {
   MajalisRoute: typeof MajalisRoute
   SearchRoute: typeof SearchRoute
   UnauthorizedRoute: typeof UnauthorizedRoute
+  ZiyaratRoute: typeof ZiyaratRouteWithChildren
   BookIdRoute: typeof BookIdRoute
   HadithIdRoute: typeof HadithIdRoute
   MajlisIdRoute: typeof MajlisIdRoute
@@ -279,6 +328,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/ziyarat': {
+      id: '/ziyarat'
+      path: '/ziyarat'
+      fullPath: '/ziyarat'
+      preLoaderRoute: typeof ZiyaratRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/unauthorized': {
       id: '/unauthorized'
       path: '/unauthorized'
@@ -342,6 +398,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ziyarat/$id': {
+      id: '/ziyarat/$id'
+      path: '/$id'
+      fullPath: '/ziyarat/$id'
+      preLoaderRoute: typeof ZiyaratIdRouteImport
+      parentRoute: typeof ZiyaratRoute
+    }
     '/majlis/$id': {
       id: '/majlis/$id'
       path: '/majlis/$id'
@@ -369,6 +432,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin'
       preLoaderRoute: typeof AdminAdminRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/_admin/admin/ziyarat': {
+      id: '/_admin/admin/ziyarat'
+      path: '/ziyarat'
+      fullPath: '/admin/ziyarat'
+      preLoaderRoute: typeof AdminAdminZiyaratRouteImport
+      parentRoute: typeof AdminAdminRoute
     }
     '/_admin/admin/users': {
       id: '/_admin/admin/users'
@@ -404,6 +474,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/articles'
       preLoaderRoute: typeof AdminAdminArticlesRouteImport
       parentRoute: typeof AdminAdminRoute
+    }
+    '/_admin/admin/ziyarat/$id/edit': {
+      id: '/_admin/admin/ziyarat/$id/edit'
+      path: '/$id/edit'
+      fullPath: '/admin/ziyarat/$id/edit'
+      preLoaderRoute: typeof AdminAdminZiyaratIdEditRouteImport
+      parentRoute: typeof AdminAdminZiyaratRoute
     }
     '/_admin/admin/majalis/$id/edit': {
       id: '/_admin/admin/majalis/$id/edit'
@@ -445,12 +522,24 @@ const AdminAdminMajalisRouteChildren: AdminAdminMajalisRouteChildren = {
 const AdminAdminMajalisRouteWithChildren =
   AdminAdminMajalisRoute._addFileChildren(AdminAdminMajalisRouteChildren)
 
+interface AdminAdminZiyaratRouteChildren {
+  AdminAdminZiyaratIdEditRoute: typeof AdminAdminZiyaratIdEditRoute
+}
+
+const AdminAdminZiyaratRouteChildren: AdminAdminZiyaratRouteChildren = {
+  AdminAdminZiyaratIdEditRoute: AdminAdminZiyaratIdEditRoute,
+}
+
+const AdminAdminZiyaratRouteWithChildren =
+  AdminAdminZiyaratRoute._addFileChildren(AdminAdminZiyaratRouteChildren)
+
 interface AdminAdminRouteChildren {
   AdminAdminArticlesRoute: typeof AdminAdminArticlesRoute
   AdminAdminAuditRoute: typeof AdminAdminAuditRoute
   AdminAdminBooksRoute: typeof AdminAdminBooksRouteWithChildren
   AdminAdminMajalisRoute: typeof AdminAdminMajalisRouteWithChildren
   AdminAdminUsersRoute: typeof AdminAdminUsersRoute
+  AdminAdminZiyaratRoute: typeof AdminAdminZiyaratRouteWithChildren
 }
 
 const AdminAdminRouteChildren: AdminAdminRouteChildren = {
@@ -459,6 +548,7 @@ const AdminAdminRouteChildren: AdminAdminRouteChildren = {
   AdminAdminBooksRoute: AdminAdminBooksRouteWithChildren,
   AdminAdminMajalisRoute: AdminAdminMajalisRouteWithChildren,
   AdminAdminUsersRoute: AdminAdminUsersRoute,
+  AdminAdminZiyaratRoute: AdminAdminZiyaratRouteWithChildren,
 }
 
 const AdminAdminRouteWithChildren = AdminAdminRoute._addFileChildren(
@@ -475,6 +565,17 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
+interface ZiyaratRouteChildren {
+  ZiyaratIdRoute: typeof ZiyaratIdRoute
+}
+
+const ZiyaratRouteChildren: ZiyaratRouteChildren = {
+  ZiyaratIdRoute: ZiyaratIdRoute,
+}
+
+const ZiyaratRouteWithChildren =
+  ZiyaratRoute._addFileChildren(ZiyaratRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
@@ -485,6 +586,7 @@ const rootRouteChildren: RootRouteChildren = {
   MajalisRoute: MajalisRoute,
   SearchRoute: SearchRoute,
   UnauthorizedRoute: UnauthorizedRoute,
+  ZiyaratRoute: ZiyaratRouteWithChildren,
   BookIdRoute: BookIdRoute,
   HadithIdRoute: HadithIdRoute,
   MajlisIdRoute: MajlisIdRoute,
