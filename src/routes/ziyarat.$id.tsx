@@ -41,6 +41,8 @@ const HONORIFICS = [
   "قُدِّسَ سِرُّهُ",
   "قُدِّسَ سِرُّهَا",
   "قُدِّسَ سِرُّهُمَا",
+  "صَلَّى ٱللَّٰهُ عَلَيْهِ وَآلِهِ وَسَلَّمَ",
+  "رَضِيَ ٱللَّٰهُ عَنْهُ"
 ] as const;
 const honorificPattern = new RegExp(`(${HONORIFICS.join("|")})`, "g");
 
@@ -72,7 +74,7 @@ function ZiyaratDetail() {
       </div>
       <header className="manuscript paper-grain relative overflow-hidden px-6 py-10 text-center sm:px-10 sm:py-14">
         <span className="font-light eyebrow">{entry.classification}</span>
-        <h1 lang="ar" className="graph-text -mt-10 text-center text-4xl text-ink sm:text-6xl">{entry.title_ar}</h1>
+        <h1 lang="ar" className="graph-text mt-5 text-center text-4xl text-ink sm:-mt-10 sm:text-6xl">{entry.title_ar}</h1>
         <div className="mx-auto my-6 w-40 gold-rule-shimmer" />
         <div className={`grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${showTranslation ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
           <div className="overflow-hidden"><h2 className="text-2xl text-ink-soft sm:text-3xl">{entry.title_en}</h2></div>
